@@ -1,1 +1,1 @@
-{"version":3,"file":"apiUrls.js","sourceRoot":"","sources":["../../../src/server/apiCaller/apiUrls.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,GAAG;IACf,cAAc,EAAE,uCAAuC;IACvD,kBAAkB,EAChB,gFAAgF;CACnF,CAAC"}
+{"version":3,"file":"apiUrls.js","sourceRoot":"","sources":["../../../src/server/apiCaller/apiUrls.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,GAAG;IACf,cAAc,EAAE,uCAAuC;IACvD,kBAAkB,EAChB,gFAAgF;IAClF,eAAe,EACb,8EAA8E;CACjF,CAAC"}

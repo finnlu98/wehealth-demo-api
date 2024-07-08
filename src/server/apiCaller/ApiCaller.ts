@@ -1,5 +1,7 @@
 //import { header_request, current_alerts_url } from "./apiUrls.js";
 import fetch from "node-fetch";
+import { Alert } from "../../models/Alert.js";
+import { MetAlerts } from "../converter/MetAlerts.js";
 
 // TODO: fix hardcoded urls
 // Destructure the call into alerts
@@ -12,10 +14,14 @@ class ApiCaller {
   constructor() {
     this.header_request = "wehealth.org finn.griggs@wehealth.org";
     this.current_alerts_url =
-      "https://api.met.no/weatherapi/metalerts/2.0/current.json?geographicDomain=land";
+      // REAL DATA
+      //"https://api.met.no/weatherapi/metalerts/2.0/current.json?geographicDomain=land&lang=en";
+
+      // TEST DATA
+      "https://api.met.no/weatherapi/metalerts/2.0/test.json?geographicDomain=land&lang=en";
   }
 
-  async getCurrentAlerts(): Promise<Object> {
+  async getCurrentAlerts(): Promise<MetAlerts | null> {
     try {
       const res = await fetch(this.current_alerts_url, {
         method: "GET",
@@ -26,16 +32,22 @@ class ApiCaller {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      return await res.json();
+      const data = await res.json();
+
+      // Basic validation to ensure data conforms to MetAlerts interface
+      if (!this.isMetAlerts(data)) {
+        throw new Error("Invalid response format");
+      }
+
+      return data;
     } catch (error) {
       console.error("Error fetching data", error);
-
       return null;
     }
   }
 
-  destructureCurrentAlerts() {
-    return;
+  isMetAlerts(data: any): data is MetAlerts {
+    return data && typeof data === "object" && Array.isArray(data.features);
   }
 }
 

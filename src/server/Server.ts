@@ -1,10 +1,12 @@
 import express from "express";
 import ApiCaller from "./apiCaller/ApiCaller.js";
+import Converter from "./converter/Converter.js";
 
 class Server {
   app: express.Application;
   port: string | number;
   apiCaller: ApiCaller;
+  converter: Converter;
 
   constructor() {
     this.app = express();
@@ -24,7 +26,10 @@ class Server {
 
   private async initialize(): Promise<void> {
     const call = await this.apiCaller.getCurrentAlerts();
-    console.log(call);
+
+    this.converter = new Converter(call); // Interface
+
+    //console.log(call);
   }
 
   private caller(): void {

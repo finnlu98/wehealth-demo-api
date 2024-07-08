@@ -1,1 +1,1 @@
-{"version":3,"file":"Awareness.js","sourceRoot":"","sources":["../../src/models/Awareness.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,SAAS;CAIrB"}
+{"version":3,"file":"Awareness.js","sourceRoot":"","sources":["../../src/models/Awareness.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,SAAS;IAKpB,YAAY,eAAuB,EAAE,KAAa,EAAE,cAAsB;QACxE,IAAI,CAAC,eAAe,GAAG,eAAe,CAAC;QACvC,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,cAAc,GAAG,cAAc,CAAC;IACvC,CAAC;CACF"}
