@@ -8,7 +8,7 @@ Project is built with Node, Express, SQLlite and Sequelizer
 
 ### db
 
-containing structure and migrations for db that keep tracks of changes to weatheralterts
+containing structure and migrations for db that keep tracks of changes to weather alerts
 
 ### server
 
