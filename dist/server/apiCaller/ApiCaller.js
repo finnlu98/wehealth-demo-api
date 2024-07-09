@@ -1,4 +1,3 @@
-//import { header_request, current_alerts_url } from "./apiUrls.js";
 import fetch from "node-fetch";
 // TODO: fix hardcoded urls
 // Destructure the call into alerts

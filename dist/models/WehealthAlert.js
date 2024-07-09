@@ -1,9 +1,8 @@
 export class WehealthAlert {
     constructor(external_alert_id, event, awareness, alert_start_date, alert_end_date, communities) {
-        console.log(event);
         this.external_alert_id = external_alert_id;
-        this.factor = this.convertToFactor(event); // function to convert!
-        this.level = awareness; // function to convert
+        this.factor = this.convertToFactor(event);
+        this.level = awareness;
         this.alert_issued_date = alert_start_date;
         this.alert_expired_date = alert_end_date;
         this.event_start_date = alert_start_date;

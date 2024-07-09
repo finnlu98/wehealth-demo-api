@@ -13,10 +13,10 @@ class Converter {
         return this.alerts;
     }
     // iterate through result and create Alert objects
-    destructureCurrentAlerts() {
-        this.met_alerts.forEach((alert) => {
+    async destructureCurrentAlerts() {
+        for (const alert of this.met_alerts) {
             this.alerts.push(this.destructureAlert(alert));
-        });
+        }
     }
     // Should return a model with alert
     destructureAlert(met_alert_meta) {
@@ -38,7 +38,6 @@ class Converter {
         // start and end time
         const [start_time, end_time] = met_alert_meta.when.interval;
         const alert = new Alert(met_alert.id, met_alert.awarenessResponse, met_alert.awarenessSeriousness, awareness, met_alert.awareness_type, met_alert.certainty, met_alert.consequences, met_alert.contact, met_alert.description, event, met_alert.instruction, met_alert.severity, met_alert.status, met_alert.title, new Date(start_time), new Date(end_time), municipalities, counties);
-        console.log(alert.weHealthAlert.formatToApi());
         return alert;
     }
     destructureAwarenessLevel(awareness_level) {

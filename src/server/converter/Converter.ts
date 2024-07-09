@@ -21,10 +21,10 @@ class Converter {
   }
 
   // iterate through result and create Alert objects
-  destructureCurrentAlerts() {
-    this.met_alerts.forEach((alert) => {
+  async destructureCurrentAlerts() {
+    for (const alert of this.met_alerts) {
       this.alerts.push(this.destructureAlert(alert));
-    });
+    }
   }
 
   // Should return a model with alert
@@ -76,8 +76,6 @@ class Converter {
       municipalities,
       counties
     );
-
-    console.log(alert.weHealthAlert.formatToApi());
 
     return alert;
   }

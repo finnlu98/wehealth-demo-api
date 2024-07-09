@@ -1,6 +1,4 @@
-//import { header_request, current_alerts_url } from "./apiUrls.js";
 import fetch from "node-fetch";
-import { Alert } from "../../models/Alert.js";
 import { MetAlerts } from "../converter/MetAlerts.js";
 
 // TODO: fix hardcoded urls
