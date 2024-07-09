@@ -6,7 +6,7 @@ Project is built with Node, Express, SQLlite and Sequelizer
 
 ## Project setup
 
-db - containing structure and migrations for db that keep tracks of changes to weatheralterts
+**db** - containing structure and migrations for db that keep tracks of changes to weatheralterts
 
 server
 
