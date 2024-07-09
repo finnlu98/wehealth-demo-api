@@ -6,9 +6,11 @@ Project is built with Node, Express, SQLlite and Sequelizer
 
 ## Project setup
 
-**db** - containing structure and migrations for db that keep tracks of changes to weatheralterts
+### db
 
-server
+containing structure and migrations for db that keep tracks of changes to weatheralterts
+
+### server
 
 - **models** to validate weather data and convert to wehealth structure
 - **api-handler** handler to query weather alerts api
