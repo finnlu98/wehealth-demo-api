@@ -10,11 +10,11 @@ db - containing structure and migrations for db that keep tracks of changes to w
 
 server
 
---**models** to validate weather data and convert to wehealth structure
---**api-handler** handler to query weather alerts api
---**db-handler** handler to query db
---**scheduler** to determine when to query api`s and db
---**logger** to inform of actions
+- **models** to validate weather data and convert to wehealth structure
+- **api-handler** handler to query weather alerts api
+- **db-handler** handler to query db
+- **scheduler** to determine when to query api`s and db
+- **logger** to inform of actions
 
 ## To run server:
 
