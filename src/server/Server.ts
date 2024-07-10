@@ -21,7 +21,9 @@ export default class Server {
     this.db_connection = sequelize;
 
     this.app.get("/", (req, res) => {
-      res.send("Hello World!");
+      res.send(
+        "Server for handling streamlining of dataflow from MET API to Whehealth."
+      );
     });
 
     this.app.listen(this.port, () => {
@@ -48,24 +50,12 @@ export default class Server {
     this.apiCaller.updateWehealthAlerts(updated_alerts);
   }
 
-  // FORCES DB TO MATCH MODEL STRUCTURE - SWITCH WITH MIGRATION
+  // Add migration to this
   private async initializeDbConnection() {
     try {
       await this.db_connection.sync(); // sync all models
     } catch (error) {
       console.error("Unable to connect to the database:", error);
     }
-  }
-
-  private caller(): void {
-    console.log("Called 1");
-  }
-
-  private scheduleCaller(): void {
-    this.caller();
-
-    setInterval(() => {
-      this.caller();
-    }, 5000);
   }
 }

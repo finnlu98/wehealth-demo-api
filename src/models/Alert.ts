@@ -75,7 +75,7 @@ export class Alert {
       this.awareness.awareness_desc,
       this.start_time,
       this.end_time,
-      [] // PLACEHOLDER FOR COMMUNITY
+      this.municipality.map((mun) => mun.municipality_number) // PLACEHOLDER FOR COMMUNITY
     );
   }
 
