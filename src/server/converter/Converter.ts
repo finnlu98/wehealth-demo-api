@@ -5,7 +5,7 @@ import { Event } from "../../models/Event.js";
 import { Municipality } from "../../models/Municipality.js";
 import { MetAlertMeta, MetAlerts } from "./MetAlerts.js";
 
-class Converter {
+export default class Converter {
   met_alerts: MetAlertMeta[];
   alerts: Alert[];
 
@@ -81,12 +81,12 @@ class Converter {
   }
 
   destructureAwarenessLevel(awareness_level: String): Awareness {
-    const [levelStr, color, awareness_desc] = awareness_level.split(";");
+    const [levelStr, color, awareness_desc] = awareness_level
+      .split(";")
+      .map((item) => item.trim());
 
     const level = parseInt(levelStr, 10);
 
     return new Awareness(level, color, awareness_desc);
   }
 }
-
-export default Converter;

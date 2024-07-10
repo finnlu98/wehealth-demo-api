@@ -29,7 +29,7 @@ export default class Server {
     // FORCES DB TO MATCH MODEL STRUCTURE - SWITCH WITH MIGRATION
     async initializeDbConnection() {
         try {
-            await this.db_connection.sync({ force: true }); // sync all models
+            await this.db_connection.sync(); // sync all models
         }
         catch (error) {
             console.error("Unable to connect to the database:", error);

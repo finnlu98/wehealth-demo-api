@@ -3,7 +3,7 @@ import { Awareness } from "../../models/Awareness.js";
 import { County } from "../../models/County.js";
 import { Event } from "../../models/Event.js";
 import { Municipality } from "../../models/Municipality.js";
-class Converter {
+export default class Converter {
     constructor(current_alerts) {
         this.met_alerts = current_alerts.features;
         this.alerts = [];
@@ -41,10 +41,11 @@ class Converter {
         return alert;
     }
     destructureAwarenessLevel(awareness_level) {
-        const [levelStr, color, awareness_desc] = awareness_level.split(";");
+        const [levelStr, color, awareness_desc] = awareness_level
+            .split(";")
+            .map((item) => item.trim());
         const level = parseInt(levelStr, 10);
         return new Awareness(level, color, awareness_desc);
     }
 }
-export default Converter;
 //# sourceMappingURL=Converter.js.map
