@@ -24,6 +24,13 @@ __decorate([
         allowNull: false,
     }),
     __metadata("design:type", String)
+], Alert.prototype, "wh_title", void 0);
+__decorate([
+    Column({
+        type: DataType.STRING,
+        allowNull: false,
+    }),
+    __metadata("design:type", String)
 ], Alert.prototype, "wh_factor", void 0);
 __decorate([
     Column({

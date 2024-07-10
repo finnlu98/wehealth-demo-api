@@ -6,7 +6,7 @@ import { WehealthAlert } from "./WehealthAlert.js";
 
 export class Alert {
   // Data from MET API
-  id: String;
+  id: string;
   awareness_response: String;
   awareness_seriousness: String;
   awareness: Awareness;
@@ -19,7 +19,7 @@ export class Alert {
   instruction: String;
   severity: String;
   status: String;
-  title: String;
+  title: string;
   start_time: Date;
   end_time: Date;
   municipality: Municipality[];
@@ -29,9 +29,8 @@ export class Alert {
   weHealthAlert: WehealthAlert;
 
   // TODO: add validation
-
   constructor(
-    id: String,
+    id: string,
     awareness_response: String,
     awareness_seriousness: String,
     awareness: Awareness,
@@ -44,7 +43,7 @@ export class Alert {
     instruction: String,
     severity: String,
     status: String,
-    title: String,
+    title: string,
     start_time: Date,
     end_time: Date,
     municipality: Municipality[],
@@ -71,11 +70,16 @@ export class Alert {
 
     this.weHealthAlert = new WehealthAlert(
       this.id,
+      this.destructureTitle(this.title),
       this.event.event,
-      this.awareness.awareness_level,
+      this.awareness.awareness_desc,
       this.start_time,
       this.end_time,
       [] // PLACEHOLDER FOR COMMUNITY
     );
+  }
+
+  destructureTitle(title: string): string {
+    return title.split(",")[0];
   }
 }

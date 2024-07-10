@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
     storage: "met_db.sqlite",
     username: "root",
     password: "",
-    logging: console.log,
+    logging: false,
 });
 sequelize.addModels([Alert]);
 export default sequelize;

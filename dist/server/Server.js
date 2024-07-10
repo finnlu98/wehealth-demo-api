@@ -6,7 +6,7 @@ import DatabaseHandler from "./databaseHandler/DatabaseHandler.js";
 export default class Server {
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || 3000;
+        this.port = process.env.PORT || 3000; // Remove magic number
         this.apiCaller = new ApiCaller();
         this.db_connection = sequelize;
         this.app.get("/", (req, res) => {
@@ -22,7 +22,9 @@ export default class Server {
         const call = await this.apiCaller.getCurrentAlerts();
         this.converter = new Converter(call);
         this.database_handler = new DatabaseHandler(this.converter.getAlerts());
-        this.database_handler.insertAlerts();
+        const [new_alerts, updated_alerts] = await this.database_handler.processNewAlerts();
+        this.apiCaller.setWehealthAlerts(new_alerts);
+        this.apiCaller.updateWehealthAlerts(updated_alerts);
     }
     // FORCES DB TO MATCH MODEL STRUCTURE - SWITCH WITH MIGRATION
     async initializeDbConnection() {

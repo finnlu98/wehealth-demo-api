@@ -1,9 +1,10 @@
 import fetch from "node-fetch";
 import { MetAlerts } from "../converter/MetAlerts.js";
+import { IWeHealthAlert } from "../../models/WehealthAlert.js";
+import { Alert as AlertModel } from "../../models/Alert.js";
+import { Alert as AlertSeq } from "../../db/models/Alert.js";
 
 // TODO: fix hardcoded urls
-// Destructure the call into alerts
-// Determine where the storage to DB is handled
 
 class ApiCaller {
   header_request: string;
@@ -47,6 +48,32 @@ class ApiCaller {
   isMetAlerts(data: any): data is MetAlerts {
     return data && typeof data === "object" && Array.isArray(data.features);
   }
+
+  async setWehealthAlerts(wehealth_alerts: AlertModel[]): Promise<void> {
+    console.log("------- QUERY SET LOGIC TO WEHEALTH API");
+
+    for (const alert of wehealth_alerts) {
+      console.log(
+        `${new Date()}: Set request to wehealth API with params -`,
+        alert.weHealthAlert
+      );
+    }
+  }
+
+  async updateWehealthAlerts(wehealth_alerts: AlertModel[]): Promise<void> {
+    console.log("------- QUERY UPDATE LOGIC TO WEHEALTH API");
+
+    for (const alert of wehealth_alerts) {
+      console.log(
+        `${new Date()}: Update request to wehealth API with params -`,
+        alert.weHealthAlert
+      );
+    }
+  }
+
+  async deleteWehealthAlerts(): Promise<void> {}
+
+  // Probably want a getter too
 }
 
 export default ApiCaller;

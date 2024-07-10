@@ -1,7 +1,5 @@
 import fetch from "node-fetch";
 // TODO: fix hardcoded urls
-// Destructure the call into alerts
-// Determine where the storage to DB is handled
 class ApiCaller {
     constructor() {
         this.header_request = "wehealth.org finn.griggs@wehealth.org";
@@ -35,6 +33,19 @@ class ApiCaller {
     isMetAlerts(data) {
         return data && typeof data === "object" && Array.isArray(data.features);
     }
+    async setWehealthAlerts(wehealth_alerts) {
+        console.log("------- QUERY SET LOGIC TO WEHEALTH API");
+        for (const alert of wehealth_alerts) {
+            console.log(`${new Date()}: Set request to wehealth API with params -`, alert.weHealthAlert);
+        }
+    }
+    async updateWehealthAlerts(wehealth_alerts) {
+        console.log("------- QUERY UPDATE LOGIC TO WEHEALTH API");
+        for (const alert of wehealth_alerts) {
+            console.log(`${new Date()}: Update request to wehealth API with params -`, alert.weHealthAlert);
+        }
+    }
+    async deleteWehealthAlerts() { }
 }
 export default ApiCaller;
 //# sourceMappingURL=ApiCaller.js.map

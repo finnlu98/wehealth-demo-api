@@ -1,6 +1,7 @@
 export class WehealthAlert {
-    constructor(external_alert_id, event, awareness, alert_start_date, alert_end_date, communities) {
+    constructor(external_alert_id, wh_title, event, awareness, alert_start_date, alert_end_date, communities) {
         this.external_alert_id = external_alert_id;
+        this.wh_title = wh_title;
         this.factor = this.convertToFactor(event);
         this.level = awareness;
         this.alert_issued_date = alert_start_date;
@@ -12,6 +13,7 @@ export class WehealthAlert {
     formatToApi() {
         return {
             external_alert_id: this.external_alert_id,
+            wh_title: this.wh_title,
             factor: this.factor,
             level: this.level,
             alert_issued_date: this.alert_issued_date,

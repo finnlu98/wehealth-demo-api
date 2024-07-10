@@ -1,10 +1,12 @@
 export class WehealthAlert {
   //cid: String; // should  be issued by Wehealth server on call
 
-  external_alert_id: String;
+  external_alert_id: string;
+
+  wh_title: string;
 
   factor: String;
-  level: number;
+  level: string;
 
   alert_issued_date: Date;
   alert_expired_date: Date;
@@ -14,16 +16,21 @@ export class WehealthAlert {
   communities: number[];
 
   constructor(
-    external_alert_id: String,
+    external_alert_id: string,
+
+    wh_title: string,
 
     event: string,
-    awareness: number,
+    awareness: string,
 
     alert_start_date: Date,
     alert_end_date: Date,
     communities: number[]
   ) {
     this.external_alert_id = external_alert_id;
+
+    this.wh_title = wh_title;
+
     this.factor = this.convertToFactor(event);
     this.level = awareness;
 
@@ -38,6 +45,9 @@ export class WehealthAlert {
   formatToApi(): IWeHealthAlert {
     return {
       external_alert_id: this.external_alert_id,
+
+      wh_title: this.wh_title,
+
       factor: this.factor,
       level: this.level,
 
@@ -72,10 +82,12 @@ export class WehealthAlert {
 }
 
 export interface IWeHealthAlert {
-  external_alert_id: String;
+  external_alert_id: string;
+
+  wh_title: string;
 
   factor: String;
-  level: number;
+  level: string;
 
   alert_issued_date: Date;
   alert_expired_date: Date;

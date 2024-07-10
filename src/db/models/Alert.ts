@@ -13,13 +13,19 @@ export class Alert extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  wh_factor: String;
+  wh_title: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  wh_level: String;
+  wh_factor: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  wh_level: string;
 
   @Column({
     type: DataType.DATE,

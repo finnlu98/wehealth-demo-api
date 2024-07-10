@@ -10,7 +10,7 @@ export interface MetAlertMeta {
 }
 
 export interface MetAlert {
-  id: String;
+  id: string;
   awarenessResponse: String;
   awarenessSeriousness: String;
   awareness_level: String;
@@ -24,7 +24,7 @@ export interface MetAlert {
   instruction: String;
   severity: String;
   status: String;
-  title: String;
+  title: string;
   municipality: number[];
   county: number[];
 }

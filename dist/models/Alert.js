@@ -20,8 +20,11 @@ export class Alert {
         this.end_time = end_time;
         this.municipality = municipality;
         this.county = county;
-        this.weHealthAlert = new WehealthAlert(this.id, this.event.event, this.awareness.awareness_level, this.start_time, this.end_time, [] // PLACEHOLDER FOR COMMUNITY
+        this.weHealthAlert = new WehealthAlert(this.id, this.destructureTitle(this.title), this.event.event, this.awareness.awareness_desc, this.start_time, this.end_time, [] // PLACEHOLDER FOR COMMUNITY
         );
+    }
+    destructureTitle(title) {
+        return title.split(",")[0];
     }
 }
 //# sourceMappingURL=Alert.js.map
