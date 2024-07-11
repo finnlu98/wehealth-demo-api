@@ -1,5 +1,9 @@
-// Todo implement scheduler
-class Scheduler {
+import schedule from "node-schedule";
+export default class Scheduler {
+    shceduleTask(task) {
+        schedule.scheduleJob("*/30 * * * * *", function () {
+            task();
+        });
+    }
 }
-export default Scheduler;
 //# sourceMappingURL=Scheduler.js.map
