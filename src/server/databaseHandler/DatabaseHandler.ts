@@ -20,9 +20,6 @@ export default class DatabaseHandler {
         const cur_alert = await AlertSeq.findByPk(
           alert.weHealthAlert.external_alert_id
         );
-        //const cur_alert = await AlertSeq.findOne({
-        //  where: { external_alert_id: alert.weHealthAlert.external_alert_id },
-        //});
 
         if (!cur_alert) {
           // create record

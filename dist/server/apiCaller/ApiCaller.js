@@ -1,13 +1,9 @@
 import fetch from "node-fetch";
-// TODO: fix hardcoded urls
+import { API_URL, HEADER_REQUEST } from "../../config.js";
 class ApiCaller {
     constructor() {
-        this.header_request = "wehealth.org finn.griggs@wehealth.org";
-        this.current_alerts_url =
-            // REAL DATA
-            //"https://api.met.no/weatherapi/metalerts/2.0/current.json?geographicDomain=land&lang=en";
-            // TEST DATA
-            "https://api.met.no/weatherapi/metalerts/2.0/test.json?geographicDomain=land&lang=en";
+        this.header_request = HEADER_REQUEST;
+        this.current_alerts_url = API_URL;
     }
     async getCurrentAlerts() {
         try {

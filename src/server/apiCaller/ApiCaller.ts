@@ -1,23 +1,15 @@
 import fetch from "node-fetch";
 import { MetAlerts } from "../converter/MetAlerts.js";
-import { IWeHealthAlert } from "../../models/WehealthAlert.js";
 import { Alert as AlertModel } from "../../models/Alert.js";
-import { Alert as AlertSeq } from "../../db/models/Alert.js";
-
-// TODO: fix hardcoded urls
+import { API_URL, HEADER_REQUEST } from "../../config.js";
 
 class ApiCaller {
   header_request: string;
   current_alerts_url: string;
 
   constructor() {
-    this.header_request = "wehealth.org finn.griggs@wehealth.org";
-    this.current_alerts_url =
-      // REAL DATA
-      //"https://api.met.no/weatherapi/metalerts/2.0/current.json?geographicDomain=land&lang=en";
-
-      // TEST DATA
-      "https://api.met.no/weatherapi/metalerts/2.0/test.json?geographicDomain=land&lang=en";
+    this.header_request = HEADER_REQUEST;
+    this.current_alerts_url = API_URL;
   }
 
   async getCurrentAlerts(): Promise<MetAlerts | null> {
