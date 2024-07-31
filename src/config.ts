@@ -19,3 +19,6 @@ export const DB_DEV_USERNAME = process.env.DB_DEV_USERNAME || "";
 export const DB_DEV_PASSWORD = process.env.DB_DEV_PASSWORD || "";
 export const DB_DEV_HOST = process.env.DB_DEV_HOST || "";
 export const DB_DEV_PORT = process.env.DB_DEV_PORT || 0;
+
+// LOOP
+export const REPEAT_TIME_PROCESS = process.env.REPEAT_TIME_PROCESS || "";

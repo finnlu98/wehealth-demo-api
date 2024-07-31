@@ -6,8 +6,8 @@ const sequelize = new Sequelize({
     dialect: "postgres",
     host: DB_DEV_HOST,
     port: 5432,
-    username: DB_DEV_USERNAME, // Replace with your actual username
-    password: DB_DEV_PASSWORD, // Replace with your actual password
+    username: DB_DEV_USERNAME,
+    password: DB_DEV_PASSWORD,
     logging: false,
     dialectOptions: {
         ssl: false, // Set to true if SSL is enabled on your PostgreSQL server
@@ -19,8 +19,8 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   host: "localhost",
   port: 5432,
-  username: DB_LOC_USERNAME, // Replace with your actual username
-  password: DB_LOC_PASSWORD, // Replace with your actual password
+  username: DB_LOC_USERNAME,
+  password: DB_LOC_PASSWORD,
   logging: false,
   dialectOptions: {
     ssl: false, // Set to true if SSL is enabled on your PostgreSQL server

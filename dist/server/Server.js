@@ -4,6 +4,7 @@ import Converter from "./converter/Converter.js";
 import sequelize from "../db/main.js";
 import DatabaseHandler from "./databaseHandler/DatabaseHandler.js";
 import Scheduler from "./scheduler/Scheduler.js";
+import { REPEAT_TIME_PROCESS } from "../config.js";
 export default class Server {
     constructor() {
         this.app = express();
@@ -19,7 +20,7 @@ export default class Server {
         this.initializeDbConnection();
         this.scheduler.shceduleTask(() => {
             this.initializeAPI();
-        });
+        }, REPEAT_TIME_PROCESS);
     }
     async initializeAPI() {
         this.apiCaller = new ApiCaller();

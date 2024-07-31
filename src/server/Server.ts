@@ -7,6 +7,8 @@ import { Sequelize } from "sequelize";
 import DatabaseHandler from "./databaseHandler/DatabaseHandler.js";
 import Scheduler from "./scheduler/Scheduler.js";
 
+import { REPEAT_TIME_PROCESS } from "../config.js";
+
 export default class Server {
   app: express.Application;
   port: string | number;
@@ -36,7 +38,7 @@ export default class Server {
 
     this.scheduler.shceduleTask(() => {
       this.initializeAPI();
-    });
+    }, REPEAT_TIME_PROCESS);
   }
 
   private async initializeAPI(): Promise<void> {

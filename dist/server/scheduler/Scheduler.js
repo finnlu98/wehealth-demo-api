@@ -1,7 +1,7 @@
 import schedule from "node-schedule";
 export default class Scheduler {
-    shceduleTask(task) {
-        schedule.scheduleJob("*/30 * * * * *", function () {
+    shceduleTask(task, repeat_time_min) {
+        schedule.scheduleJob(`*/${repeat_time_min} * * * *`, function () {
             task();
         });
     }
