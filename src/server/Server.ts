@@ -20,7 +20,7 @@ export default class Server {
 
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 3000; // Remove magic number
+    this.port = process.env.PORT || 3000;
     this.db_connection = sequelize;
     this.scheduler = new Scheduler();
 
