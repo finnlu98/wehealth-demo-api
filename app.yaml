@@ -1,1 +1,10 @@
 runtime: nodejs20
+
+env_variables:
+  INSTANCE_CONNECTION_NAME: "met-db-server:us-west2:wehealth-demo-db-dev"
+  DB_USER: "postgres"
+  DB_PASS: "postgres"
+  DB_NAME: "wehealth-demo-db-dev"
+
+beta_settings:
+  cloud_sql_instances: "met-db-server:us-west2:wehealth-demo-db-dev"
