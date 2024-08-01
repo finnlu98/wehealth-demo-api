@@ -44,8 +44,8 @@ export default class Server {
   private async initializeAPI(): Promise<void> {
     this.apiCaller = new ApiCaller();
 
-    console.log("----------------------------\n");
     console.log(
+      "---",
       new Date(),
       ": Starting weather alerts from Norway processing\n"
     );
@@ -63,14 +63,21 @@ export default class Server {
     const [new_alerts, updated_alerts] =
       await this.database_handler.processNewAlerts();
 
+    if (new_alerts.length == 0 && updated_alerts.length == 0) {
+      console.log(new Date(), ": Found no new alerts or new updates\n");
+      console.log("---", new Date(), ": Process finished\n");
+
+      return;
+    }
+
     console.log("\n");
     console.log(new Date(), ": Querying wehealth API");
+
     this.apiCaller.setWehealthAlerts(new_alerts);
 
     this.apiCaller.updateWehealthAlerts(updated_alerts);
 
-    console.log(new Date(), ": Process finished\n");
-    console.log("----------------------------\n");
+    console.log("---", new Date(), ": Process finished\n");
   }
 
   // Add migration to this

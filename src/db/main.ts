@@ -15,6 +15,7 @@ import {
   DB_DEV_PORT,
 } from "../config.js";
 
+/** 
 const sequelize = new Sequelize({
   database: process.env.DB_DEV_DATABASE_NAME,
   username: process.env.DB_DEV_USERNAME,
@@ -26,21 +27,20 @@ const sequelize = new Sequelize({
     socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
   },
 });
+*/
 
-/** 
 const sequelize = new Sequelize({
   database: DB_LOC_DATABASE_NAME,
   dialect: "postgres",
   host: "localhost",
   port: 5432,
-  username: DB_LOC_USERNAME, 
-  password: DB_LOC_PASSWORD, 
+  username: DB_LOC_USERNAME,
+  password: DB_LOC_PASSWORD,
   logging: false,
   dialectOptions: {
     ssl: false, // Set to true if SSL is enabled on your PostgreSQL server
   },
 });
-*/
 
 sequelize.addModels([Alert]);
 

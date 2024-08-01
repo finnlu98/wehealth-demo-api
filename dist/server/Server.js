@@ -24,8 +24,7 @@ export default class Server {
     }
     async initializeAPI() {
         this.apiCaller = new ApiCaller();
-        console.log("----------------------------\n");
-        console.log(new Date(), ": Starting weather alerts from Norway processing\n");
+        console.log("---", new Date(), ": Starting weather alerts from Norway processing\n");
         console.log(new Date(), ": Downloading data from MET API\n");
         const call = await this.apiCaller.getCurrentAlerts();
         console.log(new Date(), ": Converting data to wehealth structure\n");
@@ -33,12 +32,16 @@ export default class Server {
         console.log(new Date(), ": Checking for new changes to alerts in DB\n");
         this.database_handler = new DatabaseHandler(this.converter.getAlerts());
         const [new_alerts, updated_alerts] = await this.database_handler.processNewAlerts();
+        if (new_alerts.length == 0 && updated_alerts.length == 0) {
+            console.log(new Date(), ": Found no new alerts or new updates\n");
+            console.log("---", new Date(), ": Process finished\n");
+            return;
+        }
         console.log("\n");
         console.log(new Date(), ": Querying wehealth API");
         this.apiCaller.setWehealthAlerts(new_alerts);
         this.apiCaller.updateWehealthAlerts(updated_alerts);
-        console.log(new Date(), ": Process finished\n");
-        console.log("----------------------------\n");
+        console.log("---", new Date(), ": Process finished\n");
     }
     // Add migration to this
     async initializeDbConnection() {

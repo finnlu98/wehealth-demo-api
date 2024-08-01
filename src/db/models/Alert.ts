@@ -1,4 +1,10 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  AllowNull,
+} from "sequelize-typescript";
 
 @Table
 export class Alert extends Model {

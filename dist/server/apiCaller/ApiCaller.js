@@ -30,13 +30,11 @@ class ApiCaller {
         return data && typeof data === "object" && Array.isArray(data.features);
     }
     async setWehealthAlerts(wehealth_alerts) {
-        console.log("------- QUERY SET LOGIC TO WEHEALTH API");
         for (const alert of wehealth_alerts) {
             console.log(`${new Date()}: Set request to wehealth API with params -`, alert.weHealthAlert);
         }
     }
     async updateWehealthAlerts(wehealth_alerts) {
-        console.log("------- QUERY UPDATE LOGIC TO WEHEALTH API");
         for (const alert of wehealth_alerts) {
             console.log(`${new Date()}: Update request to wehealth API with params -`, alert.weHealthAlert);
         }

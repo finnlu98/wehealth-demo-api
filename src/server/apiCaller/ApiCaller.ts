@@ -42,8 +42,6 @@ class ApiCaller {
   }
 
   async setWehealthAlerts(wehealth_alerts: AlertModel[]): Promise<void> {
-    console.log("------- QUERY SET LOGIC TO WEHEALTH API");
-
     for (const alert of wehealth_alerts) {
       console.log(
         `${new Date()}: Set request to wehealth API with params -`,
@@ -53,8 +51,6 @@ class ApiCaller {
   }
 
   async updateWehealthAlerts(wehealth_alerts: AlertModel[]): Promise<void> {
-    console.log("------- QUERY UPDATE LOGIC TO WEHEALTH API");
-
     for (const alert of wehealth_alerts) {
       console.log(
         `${new Date()}: Update request to wehealth API with params -`,
