@@ -9,7 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Table, Column, Model, DataType, ForeignKey, } from "sequelize-typescript";
 import { WehealthFactor } from "./WehealthFactor.js";
-let Alert = class Alert extends Model {
+let NorwayFactor = class NorwayFactor extends Model {
+    getWhFactor() {
+        return this.wh_factor;
+    }
+    getNoFactor() {
+        return this.no_factor;
+    }
 };
 __decorate([
     Column({
@@ -18,14 +24,7 @@ __decorate([
         allowNull: false,
     }),
     __metadata("design:type", String)
-], Alert.prototype, "external_alert_id", void 0);
-__decorate([
-    Column({
-        type: DataType.STRING,
-        allowNull: false,
-    }),
-    __metadata("design:type", String)
-], Alert.prototype, "wh_title", void 0);
+], NorwayFactor.prototype, "no_factor", void 0);
 __decorate([
     ForeignKey(() => WehealthFactor),
     Column({
@@ -33,37 +32,9 @@ __decorate([
         allowNull: true,
     }),
     __metadata("design:type", String)
-], Alert.prototype, "wh_factor", void 0);
-__decorate([
-    Column({
-        type: DataType.STRING,
-        allowNull: false,
-    }),
-    __metadata("design:type", String)
-], Alert.prototype, "wh_level", void 0);
-__decorate([
-    Column({
-        type: DataType.DATE,
-        allowNull: false,
-    }),
-    __metadata("design:type", Date)
-], Alert.prototype, "wh_alert_issue_date", void 0);
-__decorate([
-    Column({
-        type: DataType.DATE,
-        allowNull: false,
-    }),
-    __metadata("design:type", Date)
-], Alert.prototype, "wh_event_start_time", void 0);
-__decorate([
-    Column({
-        type: DataType.DATE,
-        allowNull: false,
-    }),
-    __metadata("design:type", Date)
-], Alert.prototype, "wh_event_end_time", void 0);
-Alert = __decorate([
+], NorwayFactor.prototype, "wh_factor", void 0);
+NorwayFactor = __decorate([
     Table
-], Alert);
-export { Alert };
-//# sourceMappingURL=Alert.js.map
+], NorwayFactor);
+export { NorwayFactor };
+//# sourceMappingURL=NorwayFactor.js.map

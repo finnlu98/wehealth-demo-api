@@ -3,6 +3,7 @@ import { Event } from "./Event.js";
 import { Municipality } from "./Municipality.js";
 import { County } from "./County.js";
 import { WehealthAlert } from "./WehealthAlert.js";
+import { NorwayFactor } from "../db/models/NorwayFactor.js";
 
 export class Alert {
   // Data from MET API
@@ -28,6 +29,9 @@ export class Alert {
   // Wehealth attributes
   weHealthAlert: WehealthAlert;
 
+  // Factor mapping
+  factor_mapping: NorwayFactor[];
+
   // TODO: add validation
   constructor(
     id: string,
@@ -47,7 +51,8 @@ export class Alert {
     start_time: Date,
     end_time: Date,
     municipality: Municipality[],
-    county: County[]
+    county: County[],
+    factor_mapping: NorwayFactor[]
   ) {
     this.id = id;
     this.awareness_response = awareness_response;
@@ -68,18 +73,72 @@ export class Alert {
     this.municipality = municipality;
     this.county = county;
 
+    this.factor_mapping = factor_mapping;
+
     this.weHealthAlert = new WehealthAlert(
       this.id,
       this.destructureTitle(this.title),
-      this.event.event,
+      this.convertToFactor(event.event),
       this.awareness.awareness_desc,
       this.start_time,
       this.end_time,
-      this.municipality.map((mun) => mun.municipality_number) // PLACEHOLDER FOR COMMUNITY
+      this.convertToCommunities()
     );
   }
 
   destructureTitle(title: string): string {
-    return title.split(",")[0];
+    try {
+      return title.split(",")[0];
+    } catch (error) {
+      console.error("An error occurred while destructuring the title:", error);
+      return title;
+    }
+  }
+
+  /**
+   * TODO:
+   * @param factor_mapping
+   * @param factor
+   * @returns
+   */
+  convertToFactor(factor: string): string {
+    for (const factor_map of this.factor_mapping) {
+      if (factor_map.getNoFactor() == factor) {
+        return factor_map.getWhFactor();
+      }
+    }
+
+    return;
+  }
+
+  convertToCommunities(): string[] {
+    let communities = [];
+
+    for (const municipality of this.municipality) {
+      communities.push(
+        this.convertToCommunity(municipality.municipality_number.toString())
+      );
+    }
+
+    return communities;
+  }
+
+  convertToCommunity(municipality_number: string): string {
+    let converting_number: string = municipality_number;
+
+    // Check for if municipality is Oslo (has only 3 digits)
+    if (converting_number.length == 3) {
+      converting_number = "0" + converting_number;
+    }
+
+    if (converting_number.length != 4) {
+      console.error(
+        "Error in converting municipality to community: Invalid municipality number"
+      );
+      return converting_number;
+    }
+
+    const county_number = converting_number.substring(0, 2);
+    return `NO-${county_number}-${converting_number}`;
   }
 }

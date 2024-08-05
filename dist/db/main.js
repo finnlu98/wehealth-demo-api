@@ -1,6 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
 import { Alert } from "./models/Alert.js";
 import { DB_LOC_DATABASE_NAME, DB_LOC_USERNAME, DB_LOC_PASSWORD, } from "../config.js";
+import { NorwayFactor } from "./models/NorwayFactor.js";
+import { WehealthFactor } from "./models/WehealthFactor.js";
 /**
 const sequelize = new Sequelize({
   database: process.env.DB_DEV_DATABASE_NAME,
@@ -26,6 +28,6 @@ const sequelize = new Sequelize({
         ssl: false, // Set to true if SSL is enabled on your PostgreSQL server
     },
 });
-sequelize.addModels([Alert]);
+sequelize.addModels([Alert, NorwayFactor, WehealthFactor]);
 export default sequelize;
 //# sourceMappingURL=main.js.map

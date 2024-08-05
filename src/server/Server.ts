@@ -57,6 +57,8 @@ export default class Server {
     console.log(new Date(), ": Converting data to wehealth structure\n");
     this.converter = new Converter(call);
 
+    await this.converter.processCurrentAlerts();
+
     console.log(new Date(), ": Checking for new changes to alerts in DB\n");
     this.database_handler = new DatabaseHandler(this.converter.getAlerts());
 

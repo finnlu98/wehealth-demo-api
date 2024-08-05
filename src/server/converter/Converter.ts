@@ -5,15 +5,17 @@ import { Event } from "../../models/Event.js";
 import { Municipality } from "../../models/Municipality.js";
 import { MetAlertMeta, MetAlerts } from "./MetAlerts.js";
 
+import { NorwayFactor } from "../../db/models/NorwayFactor.js";
+
 export default class Converter {
   met_alerts: MetAlertMeta[];
   alerts: Alert[];
 
+  factor_mapping: NorwayFactor[];
+
   constructor(current_alerts: MetAlerts) {
     this.met_alerts = current_alerts.features;
     this.alerts = [];
-
-    this.destructureCurrentAlerts();
   }
 
   getAlerts() {
@@ -21,14 +23,16 @@ export default class Converter {
   }
 
   // iterate through result and create Alert objects
-  async destructureCurrentAlerts() {
+  async processCurrentAlerts() {
+    await this.getFactorMapping();
+
     for (const alert of this.met_alerts) {
-      this.alerts.push(this.destructureAlert(alert));
+      this.alerts.push(this.processAlert(alert));
     }
   }
 
   // Should return a model with alert
-  destructureAlert(met_alert_meta: MetAlertMeta): Alert {
+  processAlert(met_alert_meta: MetAlertMeta): Alert {
     const met_alert = met_alert_meta.properties;
 
     // Awareness
@@ -74,7 +78,9 @@ export default class Converter {
       new Date(end_time),
 
       municipalities,
-      counties
+      counties,
+
+      this.factor_mapping
     );
 
     return alert;
@@ -88,5 +94,11 @@ export default class Converter {
     const level = parseInt(levelStr, 10);
 
     return new Awareness(level, color, awareness_desc);
+  }
+
+  async getFactorMapping(): Promise<NorwayFactor[]> {
+    this.factor_mapping = await NorwayFactor.findAll();
+
+    return;
   }
 }

@@ -29,6 +29,7 @@ export default class Server {
         const call = await this.apiCaller.getCurrentAlerts();
         console.log(new Date(), ": Converting data to wehealth structure\n");
         this.converter = new Converter(call);
+        await this.converter.processCurrentAlerts();
         console.log(new Date(), ": Checking for new changes to alerts in DB\n");
         this.database_handler = new DatabaseHandler(this.converter.getAlerts());
         const [new_alerts, updated_alerts] = await this.database_handler.processNewAlerts();

@@ -27,7 +27,8 @@
     "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "wehealth-demo-api": "file:"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",

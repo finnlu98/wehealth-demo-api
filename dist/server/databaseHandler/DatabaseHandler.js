@@ -1,14 +1,13 @@
 import { Alert as AlertSeq } from "../../db/models/Alert.js";
 export default class DatabaseHandler {
     constructor(alerts) {
-        this.currentAlerts = alerts;
+        this.current_alerts = alerts;
     }
-    // MVP: find and then create
     // SPLIT FUNCTION!
     async processNewAlerts() {
         let new_alerts = [];
         let updated_alerts = [];
-        for (const alert of this.currentAlerts) {
+        for (const alert of this.current_alerts) {
             try {
                 const cur_alert = await AlertSeq.findByPk(alert.weHealthAlert.external_alert_id);
                 if (!cur_alert) {

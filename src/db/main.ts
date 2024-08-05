@@ -14,6 +14,8 @@ import {
   INSTANCE_CONNECTION_NAME,
   DB_DEV_PORT,
 } from "../config.js";
+import { NorwayFactor } from "./models/NorwayFactor.js";
+import { WehealthFactor } from "./models/WehealthFactor.js";
 
 /** 
 const sequelize = new Sequelize({
@@ -42,6 +44,6 @@ const sequelize = new Sequelize({
   },
 });
 
-sequelize.addModels([Alert]);
+sequelize.addModels([Alert, NorwayFactor, WehealthFactor]);
 
 export default sequelize;

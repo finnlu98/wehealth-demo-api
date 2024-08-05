@@ -3,19 +3,18 @@ import { Alert as AlertSeq } from "../../db/models/Alert.js";
 import { IWeHealthAlert } from "../../models/WehealthAlert.js";
 
 export default class DatabaseHandler {
-  currentAlerts: AlertModel[];
+  current_alerts: AlertModel[];
 
   constructor(alerts: AlertModel[]) {
-    this.currentAlerts = alerts;
+    this.current_alerts = alerts;
   }
 
-  // MVP: find and then create
   // SPLIT FUNCTION!
   async processNewAlerts(): Promise<[AlertModel[], AlertModel[]]> {
     let new_alerts: AlertModel[] = [];
     let updated_alerts: AlertModel[] = [];
 
-    for (const alert of this.currentAlerts) {
+    for (const alert of this.current_alerts) {
       try {
         const cur_alert = await AlertSeq.findByPk(
           alert.weHealthAlert.external_alert_id

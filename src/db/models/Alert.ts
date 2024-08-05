@@ -4,7 +4,10 @@ import {
   Model,
   DataType,
   AllowNull,
+  ForeignKey,
 } from "sequelize-typescript";
+
+import { WehealthFactor } from "./WehealthFactor.js";
 
 @Table
 export class Alert extends Model {
@@ -21,9 +24,18 @@ export class Alert extends Model {
   })
   wh_title: string;
 
+  /** 
   @Column({
     type: DataType.STRING,
     allowNull: false,
+  })
+  wh_factor: string;
+  */
+
+  @ForeignKey(() => WehealthFactor)
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
   })
   wh_factor: string;
 
