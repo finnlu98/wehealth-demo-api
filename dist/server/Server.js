@@ -12,7 +12,7 @@ export default class Server {
         this.db_connection = sequelize;
         this.scheduler = new Scheduler();
         this.app.get("/", (req, res) => {
-            res.send("Server for handling streamlining of dataflow from MET API to Whehealth.");
+            res.send("Server for handling streamlining of dataflow from Norwegian extreme weather alerts to Whehealth.\n\nContact: sameer@wehealth.org");
         });
         this.app.listen(this.port, () => {
             console.log(`Server is running on http://localhost:${this.port}`);

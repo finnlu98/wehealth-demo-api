@@ -48,12 +48,17 @@ export class WehealthAlert {
         return communities;
     }
     convertToCommunity(municipality_number) {
-        if (municipality_number.length != 4) {
-            console.error("Error in converting municipality to community: Invalid municipality number");
-            return municipality_number;
+        let converting_number = municipality_number;
+        // Check for if municipality is Oslo (has only 3 digits)
+        if (converting_number.length == 3) {
+            converting_number = "0" + converting_number;
         }
-        const county_number = municipality_number.substring(0, 2);
-        return `NO-${county_number}-${municipality_number}`;
+        if (converting_number.length != 4) {
+            console.error("Error in converting municipality to community: Invalid municipality number");
+            return converting_number;
+        }
+        const county_number = converting_number.substring(0, 2);
+        return `NO-${county_number}-${converting_number}`;
     }
 }
 //# sourceMappingURL=WehealthAlert.js.map

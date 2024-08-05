@@ -26,7 +26,7 @@ export default class Server {
 
     this.app.get("/", (req, res) => {
       res.send(
-        "Server for handling streamlining of dataflow from MET API to Whehealth."
+        "Server for handling streamlining of dataflow from Norwegian extreme weather alerts to Whehealth.\n\nContact: sameer@wehealth.org"
       );
     });
 
