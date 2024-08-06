@@ -2,7 +2,7 @@ import { Alert as AlertModel } from "../../models/Alert.js";
 import { Alert as AlertSeq } from "../../db/models/Alert.js";
 import { IWeHealthAlert } from "../../models/WehealthAlert.js";
 
-export default class DatabaseHandler {
+export default class AlertHandler {
   current_alerts: AlertModel[];
 
   constructor(alerts: AlertModel[]) {

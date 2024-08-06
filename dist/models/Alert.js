@@ -45,6 +45,7 @@ export class Alert {
                 return factor_map.getWhFactor();
             }
         }
+        console.error(`Norwegian factor ${factor} does not exist in the database - has no mapping to Wehealth Factor - returning Null`);
         return;
     }
     convertToCommunities() {

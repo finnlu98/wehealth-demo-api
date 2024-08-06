@@ -2,18 +2,17 @@ import express from "express";
 import ApiCaller from "./apiCaller/ApiCaller.js";
 import Converter from "./converter/Converter.js";
 import sequelize from "../db/main.js";
-import DatabaseHandler from "./databaseHandler/DatabaseHandler.js";
+import DatabaseHandler from "./databaseHandler/AlertHandler.js";
 import Scheduler from "./scheduler/Scheduler.js";
 import { REPEAT_TIME_PROCESS } from "../config.js";
+import { Routes } from "./router/Routes.js";
 export default class Server {
     constructor() {
         this.app = express();
+        this.router = new Routes(this.app);
         this.port = process.env.PORT || 3000;
         this.db_connection = sequelize;
         this.scheduler = new Scheduler();
-        this.app.get("/", (req, res) => {
-            res.send("Server for handling streamlining of dataflow from Norwegian extreme weather alerts to Whehealth.\n\nContact: sameer@wehealth.org");
-        });
         this.app.listen(this.port, () => {
             console.log(`Server is running on http://localhost:${this.port}`);
         });
