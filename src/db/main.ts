@@ -16,6 +16,7 @@ import {
 } from "../config.js";
 import { NorwayFactor } from "./models/NorwayFactor.js";
 import { WehealthFactor } from "./models/WehealthFactor.js";
+import { WeHealthCommunity } from "./models/WeHealthCommunity.js";
 
 /** 
 const sequelize = new Sequelize({
@@ -44,6 +45,6 @@ const sequelize = new Sequelize({
   },
 });
 
-sequelize.addModels([Alert, NorwayFactor, WehealthFactor]);
+sequelize.addModels([Alert, NorwayFactor, WehealthFactor, WeHealthCommunity]);
 
 export default sequelize;

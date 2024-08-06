@@ -6,12 +6,14 @@ import { Municipality } from "../../models/Municipality.js";
 import { MetAlertMeta, MetAlerts } from "./MetAlerts.js";
 
 import { NorwayFactor } from "../../db/models/NorwayFactor.js";
+import { WeHealthCommunity } from "../../db/models/WeHealthCommunity.js";
 
 export default class Converter {
   met_alerts: MetAlertMeta[];
   alerts: Alert[];
 
   factor_mapping: NorwayFactor[];
+  wh_communities_mapping: WeHealthCommunity[];
 
   constructor(current_alerts: MetAlerts) {
     this.met_alerts = current_alerts.features;
@@ -25,6 +27,7 @@ export default class Converter {
   // iterate through result and create Alert objects
   async processCurrentAlerts() {
     await this.getFactorMapping();
+    await this.getExistingCommunities();
 
     for (const alert of this.met_alerts) {
       this.alerts.push(this.processAlert(alert));
@@ -80,7 +83,8 @@ export default class Converter {
       municipalities,
       counties,
 
-      this.factor_mapping
+      this.factor_mapping,
+      this.wh_communities_mapping
     );
 
     return alert;
@@ -96,8 +100,15 @@ export default class Converter {
     return new Awareness(level, color, awareness_desc);
   }
 
+  // NEEDS TRY STATEMENTS
   async getFactorMapping(): Promise<NorwayFactor[]> {
     this.factor_mapping = await NorwayFactor.findAll();
+
+    return;
+  }
+
+  async getExistingCommunities(): Promise<WeHealthCommunity[]> {
+    this.wh_communities_mapping = await WeHealthCommunity.findAll();
 
     return;
   }
