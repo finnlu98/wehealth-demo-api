@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import { Community } from "./routes/Community.js";
+import { Factor } from "./routes/Factor.js";
 export class Routes {
     constructor(app) {
         this.app = app;
@@ -12,7 +13,9 @@ export class Routes {
     }
     setupRoutes() {
         const community = new Community(this.api_router);
+        const factor = new Factor(this.api_router);
         this.app.use("/api", community.api_router);
+        this.app.use("/api", factor.api_router);
     }
 }
 //# sourceMappingURL=Routes.js.map

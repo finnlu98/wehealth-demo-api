@@ -56,6 +56,7 @@ export class Community {
     });
   }
 
+  // MISSING BULK UPDATE
   public updateCommunities() {
     this.api_router.put(this.subroute, async (req: Request, res: Response) => {
       try {

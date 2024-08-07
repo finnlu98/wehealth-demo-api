@@ -40,6 +40,7 @@ export class Community {
             }
         });
     }
+    // MISSING BULK UPDATE
     updateCommunities() {
         this.api_router.put(this.subroute, async (req, res) => {
             try {
@@ -65,6 +66,7 @@ export class Community {
             }
         });
     }
+    // MISSING BULK DELETE
     deleteCommunities() {
         this.api_router.delete(this.subroute, async (req, res) => {
             try {

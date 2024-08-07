@@ -1,5 +1,6 @@
 import express, { Application, Router } from "express";
 import { Community } from "./routes/Community.js";
+import { Factor } from "./routes/Factor.js";
 
 export class Routes {
   app: Application;
@@ -21,7 +22,9 @@ export class Routes {
 
   public setupRoutes(): void {
     const community = new Community(this.api_router);
+    const factor = new Factor(this.api_router);
 
     this.app.use("/api", community.api_router);
+    this.app.use("/api", factor.api_router);
   }
 }
