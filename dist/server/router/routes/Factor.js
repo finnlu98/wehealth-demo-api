@@ -17,9 +17,6 @@ export class Factor {
         this.updateNoFactor();
         this.deleteWhFactor();
         this.deleteNoFactor();
-        //this.createCommunities();
-        //this.updateCommunities();
-        //this.deleteCommunities();
     }
     getWhFactors() {
         this.getRecords(this.wh_factor_route, this.factorHandler.getWhFactors);
@@ -39,15 +36,16 @@ export class Factor {
         });
     }
     createWhFactor() {
-        this.createRecord(this.wh_factor_route, this.factorHandler.createWhFactor);
+        this.createRecord(this.wh_factor_route, this.factorHandler.createWhFactors);
     }
     createNoFactor() {
-        this.createRecord(this.no_factor_route, this.factorHandler.createNoFactor);
+        this.createRecord(this.no_factor_route, this.factorHandler.createNoFactors);
     }
     createRecord(factor_route, handler) {
         this.api_router.post(`${this.subroute}${factor_route}`, async (req, res) => {
             try {
-                const factors = await handler.call(this.factorHandler, req.body);
+                const req_formatter = Array.isArray(req.body) ? req.body : [req.body];
+                const factors = await handler.call(this.factorHandler, req_formatter);
                 res.status(200).send(factors);
             }
             catch (error) {
@@ -57,18 +55,19 @@ export class Factor {
         });
     }
     updateWhFactor() {
-        this.updateRecord(this.wh_factor_route, this.factorHandler.updateWhFactor);
+        this.updateRecord(this.wh_factor_route, this.factorHandler.updateWhFactors);
     }
     updateNoFactor() {
-        this.updateRecord(this.no_factor_route, this.factorHandler.updateNoFactor);
+        this.updateRecord(this.no_factor_route, this.factorHandler.updateNoFactors);
     }
     updateRecord(factor_route, handler) {
         this.api_router.put(`${this.subroute}${factor_route}`, async (req, res) => {
             try {
-                const num_updated = await handler.call(this.factorHandler, req.body);
+                const req_formatter = Array.isArray(req.body) ? req.body : [req.body];
+                const num_updated = await handler.call(this.factorHandler, req_formatter);
                 if (num_updated > 0) {
                     res.status(201).send({
-                        message: "Updated community",
+                        message: "Updated factor",
                         res: req.body,
                     });
                 }
@@ -85,15 +84,16 @@ export class Factor {
         });
     }
     deleteWhFactor() {
-        this.deleteRecord(this.wh_factor_route, this.factorHandler.deleteWhFactor);
+        this.deleteRecord(this.wh_factor_route, this.factorHandler.deleteWhFactors);
     }
     deleteNoFactor() {
-        this.deleteRecord(this.no_factor_route, this.factorHandler.deleteNoFactor);
+        this.deleteRecord(this.no_factor_route, this.factorHandler.deleteNoFactors);
     }
     deleteRecord(factor_route, handler) {
         this.api_router.delete(`${this.subroute}${factor_route}`, async (req, res) => {
             try {
-                const num_updated = await handler.call(this.factorHandler, req.body);
+                const req_formatter = Array.isArray(req.body) ? req.body : [req.body];
+                const num_updated = await handler.call(this.factorHandler, req_formatter);
                 if (num_updated > 0) {
                     res.status(201).send({
                         message: "Deleted factor",

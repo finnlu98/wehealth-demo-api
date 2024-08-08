@@ -1,6 +1,7 @@
 import { where } from "sequelize";
 import { WehealthFactor } from "../../db/models/WehealthFactor.js";
 import { NorwayFactor } from "../../db/models/NorwayFactor.js";
+import sequelize from "../../db/main.js";
 
 export default class FactorHandler {
   wh_factor: WehealthFactor;
@@ -32,7 +33,8 @@ export default class FactorHandler {
   }
 
   async createWhFactor(
-    wh_factor_reg: Record<any, any>
+    wh_factor_reg: Record<any, any>,
+    transaction: any
   ): Promise<WehealthFactor> {
     const { wh_factor } = wh_factor_reg;
 
@@ -41,7 +43,7 @@ export default class FactorHandler {
         {
           wh_factor: wh_factor,
         },
-        { raw: true }
+        { transaction }
       );
       return new_factor;
     } catch (error) {
@@ -51,7 +53,8 @@ export default class FactorHandler {
   }
 
   async createNoFactor(
-    no_wh_factor: Record<string, string>
+    no_wh_factor: Record<string, string>,
+    transaction: any
   ): Promise<NorwayFactor> {
     const { no_factor, wh_factor } = no_wh_factor;
     try {
@@ -60,7 +63,7 @@ export default class FactorHandler {
           no_factor: no_factor,
           wh_factor: wh_factor,
         },
-        { raw: true }
+        { transaction }
       );
       return new_factor;
     } catch (error) {
@@ -69,18 +72,50 @@ export default class FactorHandler {
     }
   }
 
-  // TODO
-  async createWhFactors(wh_factors: string[]): Promise<WehealthFactor[]> {
-    return;
+  async createWhFactors(
+    wh_factors: Record<string, string>[]
+  ): Promise<WehealthFactor[]> {
+    try {
+      let created_factors: WehealthFactor[] = [];
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const wh_factor of wh_factors) {
+          created_factors.push(
+            await this.createWhFactor(wh_factor, transaction)
+          );
+        }
+      });
+
+      return created_factors;
+    } catch (error) {
+      throw new Error("Failed to create factors");
+    }
   }
 
   async createNoFactors(
     no_wh_factors: Array<Record<string, string>>
   ): Promise<NorwayFactor[]> {
-    return;
+    try {
+      let created_factors: NorwayFactor[] = [];
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const no_wh_factor of no_wh_factors) {
+          created_factors.push(
+            await this.createNoFactor(no_wh_factor, transaction)
+          );
+        }
+      });
+
+      return created_factors;
+    } catch (error) {
+      throw new Error("Failed to create factors");
+    }
   }
 
-  async updateWhFactor(up_wh_factor: Record<string, string>): Promise<number> {
+  async updateWhFactor(
+    up_wh_factor: Record<string, string>,
+    transaction: any
+  ): Promise<number> {
     const { wh_factor, new_wh_factor } = up_wh_factor;
 
     try {
@@ -88,20 +123,21 @@ export default class FactorHandler {
         {
           wh_factor: new_wh_factor,
         },
-        { where: { wh_factor: wh_factor } }
+        { where: { wh_factor: wh_factor }, transaction }
       );
 
       const [affectedCount] = up_factor;
 
       return affectedCount;
     } catch (error) {
-      console.error("Failed to update community:", error);
-      throw new Error("Failed to update community");
+      console.error("Failed to update factor:", error);
+      throw new Error("Failed to update factor");
     }
   }
 
   async updateNoFactor(
-    up_no_wh_factor: Record<string, string>
+    up_no_wh_factor: Record<string, string>,
+    transaction: any
   ): Promise<number> {
     const { no_factor, new_no_factor, new_wh_factor } = up_no_wh_factor;
 
@@ -113,6 +149,7 @@ export default class FactorHandler {
     try {
       const up_factor = await NorwayFactor.update(queryFactors, {
         where: { no_factor: no_factor },
+        transaction,
       });
 
       const [affectedCount] = up_factor;
@@ -124,7 +161,44 @@ export default class FactorHandler {
     }
   }
 
-  async deleteWhFactor(wh_factor_del: Record<any, any>): Promise<number> {
+  async updateWhFactors(wh_factors: Record<string, string>[]): Promise<number> {
+    try {
+      let updated_records = 0;
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const wh_factor of wh_factors) {
+          updated_records += await this.updateWhFactor(wh_factor, transaction);
+        }
+      });
+
+      return updated_records;
+    } catch (error) {
+      throw new Error("Failed to update factors");
+    }
+  }
+
+  async updateNoFactors(
+    no_wh_factors: Record<string, string>[]
+  ): Promise<number> {
+    try {
+      let updated_records = 0;
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const wh_factor of no_wh_factors) {
+          updated_records += await this.updateNoFactor(wh_factor, transaction);
+        }
+      });
+
+      return updated_records;
+    } catch (error) {
+      throw new Error("Failed to update factors");
+    }
+  }
+
+  async deleteWhFactor(
+    wh_factor_del: Record<any, any>,
+    transaction: any
+  ): Promise<number> {
     const { wh_factor } = wh_factor_del;
 
     try {
@@ -132,6 +206,7 @@ export default class FactorHandler {
         where: {
           wh_factor: wh_factor,
         },
+        transaction,
       });
 
       return del_factor;
@@ -141,7 +216,10 @@ export default class FactorHandler {
     }
   }
 
-  async deleteNoFactor(no_factor_del: Record<any, any>): Promise<number> {
+  async deleteNoFactor(
+    no_factor_del: Record<any, any>,
+    transaction: any
+  ): Promise<number> {
     const { no_factor } = no_factor_del;
 
     try {
@@ -149,12 +227,45 @@ export default class FactorHandler {
         where: {
           no_factor: no_factor,
         },
+        transaction,
       });
 
       return del_factor;
     } catch (error) {
       console.error("Failed to delete Norway factor:", error);
       throw new Error("Failed to delete Norway factor");
+    }
+  }
+
+  async deleteWhFactors(wh_factors: Record<string, string>[]): Promise<number> {
+    try {
+      let deleted_records = 0;
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const wh_factor of wh_factors) {
+          deleted_records += await this.deleteWhFactor(wh_factor, transaction);
+        }
+      });
+
+      return deleted_records;
+    } catch (error) {
+      throw new Error("Failed to delete factors");
+    }
+  }
+
+  async deleteNoFactors(no_factors: Record<string, string>[]): Promise<number> {
+    try {
+      let deleted_records = 0;
+
+      const result = await sequelize.transaction(async (transaction) => {
+        for (const no_factor of no_factors) {
+          deleted_records += await this.deleteNoFactor(no_factor, transaction);
+        }
+      });
+
+      return deleted_records;
+    } catch (error) {
+      throw new Error("Failed to delete factors");
     }
   }
 }
